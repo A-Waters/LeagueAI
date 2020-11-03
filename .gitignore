@@ -1,0 +1,7 @@
+.viscode/
+./pycache/
+
+./training_data/*
+./visualizer_data/*
+./Background/*
+./characters/*
