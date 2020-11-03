@@ -8,10 +8,6 @@ from screenGrab import grab_screen
 
 if __name__ == "__main__":
 
-    # training_data = np.load("./training_data/training_data-0.npy", allow_pickle=True)
-    
-
-
     training_data = []
     
     paused = False

@@ -3,6 +3,11 @@ from cv2 import cv2
 from time import sleep 
 import numpy as np
 
+
+'''this code take your main screens montitor every 3 seconds and save it in Backgrounds'''
+
+
+
 if __name__ == "__main__":
     num = 0
     while True:
