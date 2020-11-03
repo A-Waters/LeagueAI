@@ -1,7 +1,19 @@
-.viscode/
-./pycache/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
 
-./training_data/*
-./visualizer_data/*
+
+__pycache__/
+*.py[cod]
+
+
+./training_data
+./visualizer_data
 ./Background/*
 ./characters/*
+
+*/*.npy
+*/*.png
