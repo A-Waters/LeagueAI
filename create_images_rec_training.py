@@ -4,6 +4,7 @@ from cv2 import cv2
 import numpy as np
 import keyboard
 from time import sleep 
+import os
 
 
 '''used speifcily to grab models for image creation off this website https://teemo.gg/model-viewer?skinid=sru_orderminionmelee-0&model-type=creatures 
@@ -12,7 +13,8 @@ from time import sleep
     and q to quit
 '''
 
-
+character = "red cannon minion"
+animation = "idle1"
 
 def remove_background(img):
     
@@ -87,6 +89,9 @@ if __name__ == "__main__":
             if paused == False:
                 paused = True
                 print("paused")
+                for i in range(5):
+                    print(i)
+                    sleep(1)
                 
             else:
                 paused = False
@@ -111,8 +116,21 @@ if __name__ == "__main__":
     number = 0
     version = 0
 
+    dirname = f'characters\\{character}\\{animation}'
+    dir_levels = dirname.split('\\')
+
+    for level, directory in enumerate(dir_levels):
+        
+
+        dir_location = '\\'.qjoin(dir_levels[:level+1])
+
+        if not os.path.exists(dir_location):
+            os.mkdir(dir_location)
+
+        
+
     # loop through images
-    for index, capture  in enumerate(captures) :
+    for index, capture  in enumerate(captures):
         
         #% done
         print(f"{index/len(captures) * 100}")
@@ -131,7 +149,13 @@ if __name__ == "__main__":
         #cv2.destroyAllWindows()
     
         # save image
-        cv2.imwrite(f'characters/saved{number}-{version}.png', crop)
+        
+        filename = f'{character}-{animation}-{number}-{version}.jpg'
+        
+        print(f"Saving to: {dirname}\\{filename}")
+        
+        cv2.imwrite(os.path.join(dirname, filename), crop)
+        
         number += 1
 
 

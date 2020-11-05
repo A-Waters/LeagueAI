@@ -15,5 +15,8 @@ __pycache__/
 ./Background/*
 ./characters/*
 
-*/*.npy
-*/*.png
+
+
+*.npy
+*.png
+*.jpg

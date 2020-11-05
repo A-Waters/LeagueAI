@@ -7,6 +7,10 @@ import random
 '''this code take images and overlaps them to create data to train the visualizer nerual net'''
 
 def overlay_transparent(background, overlay, x_offset, y_offset):
+    
+    
+    
+    
     '''put two images on to of each other with transparnet background on overlay'''
 
     # get bounding box positions
@@ -17,6 +21,7 @@ def overlay_transparent(background, overlay, x_offset, y_offset):
     if x2 > background.shape[1] or y2 > background.shape[0]:
         print("------------FAILED------------")
         return background
+
 
     #merege images
     alpha_s = overlay[:, :, 3] / 255.0
@@ -31,7 +36,9 @@ def overlay_transparent(background, overlay, x_offset, y_offset):
     except:
         print("------------ERROR------------")
 
+    
     return background
+ 
 
 
 
@@ -40,26 +47,101 @@ def overlay_transparent(background, overlay, x_offset, y_offset):
 if __name__ == "__main__":
     
     #how many image to to make
-    images_to_make = 5000
+    images_to_make = 1
 
-    # load in background image
-    background = (cv2.imread("Background/background-0.png", cv2.IMREAD_UNCHANGED))
-    background_main = cv2.cvtColor(background,cv2.COLOR_RGB2RGBA)
-    
-    #list of images
-    image_list = []
-    
-    #get all the charetcers in the folder
-    for filename in glob.glob('characters/*.png'):
+    # list of backgrounds
+    backgrounds = []
+
+    # load in background images
+    for filename in glob.glob('Background/*.png'):
         im = cv2.imread(filename, cv2.IMREAD_UNCHANGED)
         im = cv2.cvtColor(im,cv2.COLOR_RGB2RGBA)
-        image_list.append(im)
+        backgrounds.append(im)
+
+    
+
+    
+    #list of charecters
+    char_list = []
+    
+    #get all the charetcers in the folder
+
+    
+    for index, folder  in enumerate(glob.glob('characters\\*')): 
+        print(folder)
+        for action in glob.glob(folder+'\\*'):
+            print(action)
+            for image in glob.glob(action+'\\*.png'):
+                im = cv2.imread(image, cv2.IMREAD_UNCHANGED)
+                im = cv2.cvtColor(im,cv2.COLOR_RGB2RGBA)
+                char_list.append([index,im])
+
+
+
+
+    
+
+    
 
     # data is the final data to save 
     # data = [background image, x bounding box start, y bounding box start, size of bounding box X, size of bounding box Y, type?]
     data = []
     
     starting_value = 0
+    max_chars = 10
+    
+
+    # create images
+    for i in range(images_to_make):
+        # get number of chars to load up to ten
+        charecters_to_make = random.randrange(max_chars)
+
+        # get a random background
+        random_background = random.choice(backgrounds)
+
+        # get chars to put on image
+        char_to_use = []
+
+        for _ in range(charecters_to_make):
+            char_to_use.append(random.choice(char_list))
+
+
+        #make a copy of the background
+        background = random_background.copy()
+
+
+        for char_index in range(charecters_to_make):
+            
+            # scale of char but no less than 0.3
+            scale_of_char = random.random()
+            scale_of_char = scale_of_char if scale_of_char > 0.7 else 0.7
+
+            # resize image
+            width = int(char_to_use[char_index].shape[1] * scale_of_char)
+            height = int(char_to_use[char_index].shape[0] * scale_of_char) 
+            dim = (width, height) 
+            char_to_use[char_index] = cv2.resize(char_to_use[char_index], dim, interpolation = cv2.INTER_AREA) 
+            
+
+            # where to not place char
+            maxX_pos = background.shape[1] - char_to_use[char_index].shape[1] - 1
+            maxY_pos = background.shape[0] - char_to_use[char_index].shape[0] - 1
+
+            # where to place char
+            rand_x = random.randrange(maxX_pos)
+            rand_y = random.randrange(maxY_pos)
+
+            # overlay images and store returned in background
+            overlay_transparent(background, char_to_use[char_index], rand_x, rand_y)
+
+
+            cv2.imshow('image',background)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
+
+    '''
+
+
     for i in range(images_to_make):
         
         #make a copy of the background
@@ -101,7 +183,7 @@ if __name__ == "__main__":
                 data = []
 
 
-
+    '''
 
         
 

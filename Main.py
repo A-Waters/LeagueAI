@@ -5,6 +5,8 @@ from cv2 import cv2
 
 from screenGrab import grab_screen
 
+'''currently this code simply montiors a users input into the keyboard and saves the current screen data with the input'''
+
 
 if __name__ == "__main__":
 
