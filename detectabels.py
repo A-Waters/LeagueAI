@@ -1,3 +1,6 @@
+
+#Right now this does nothing
+
 class detectabel:
     def __init__(self, size, location, team,*args, **kwargs):
         self.size = size

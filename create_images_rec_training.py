@@ -13,8 +13,10 @@ import os
     and q to quit
 '''
 
-character = "red cannon minion"
+character = "red_cannon_minion"
 animation = "idle1"
+number = 0
+version = 1
 
 def remove_background(img):
     
@@ -98,7 +100,7 @@ if __name__ == "__main__":
                 print("resume")
                 sleep(1)
                 
-                for i in range(5):
+                for i in range(3,0,-1):
                     print(i)
                     sleep(1)
                 
@@ -113,8 +115,7 @@ if __name__ == "__main__":
     print(f"processing {len(captures)}")
     
     # save data
-    number = 0
-    version = 0
+    
 
     dirname = f'characters\\{character}\\{animation}'
     dir_levels = dirname.split('\\')
@@ -122,7 +123,7 @@ if __name__ == "__main__":
     for level, directory in enumerate(dir_levels):
         
 
-        dir_location = '\\'.qjoin(dir_levels[:level+1])
+        dir_location = '\\'.join(dir_levels[:level+1])
 
         if not os.path.exists(dir_location):
             os.mkdir(dir_location)
@@ -150,7 +151,7 @@ if __name__ == "__main__":
     
         # save image
         
-        filename = f'{character}-{animation}-{number}-{version}.jpg'
+        filename = f'{character}-{animation}-{number}-{version}.PNG'
         
         print(f"Saving to: {dirname}\\{filename}")
         

@@ -10,13 +10,14 @@ __pycache__/
 *.py[cod]
 
 
-./training_data
-./visualizer_data
-./Background/*
-./characters/*
+training_data
+visualizer_data
+Background/*
+characters/*
+questions/
 
-
-
+questions/training/data/*.txt
+questions/generated_testing/data/*.txt
 *.npy
 *.png
 *.jpg
