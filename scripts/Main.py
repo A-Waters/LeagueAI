@@ -19,12 +19,12 @@ if __name__ == "__main__":
             
             MainScreen = grab_screen(region=(0,0,1920,1080))
             # resize to something a bit more acceptable for a CNN
-            MainScreen = cv2.resize(MainScreen, (480,270))
+            MainScreen = cv2.resize(MainScreen, (480,480))
             # run a color convert:
             MainScreen = cv2.cvtColor(MainScreen, cv2.COLOR_BGR2RGB)
             # normalize image
-            MainScreen = cv2.normalize(MainScreen, None, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_32F)
-
+            # MainScreen = cv2.normalize(MainScreen, None, alpha=0, beta=1, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_32F)
+             
 
             #grab Healthbar
             HealthScreen = grab_screen(region=(550,950,1200,1080))
